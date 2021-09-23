@@ -22,17 +22,34 @@
   const $table = document.createElement('tr');
   const $result = document.createElement('div');
   const row = [];
+  let turn = 'O';
+
+  const callback = (event) => {
+    if(event.target.textContent !== '') {
+      console.log('빈칸이 아닙니다.');
+    } else {
+      console.log('빈칸입니다');
+      event.target.textContent = turn;
+      if (turn === 'X') {
+        turn = 'O';
+      } else {
+        turn = 'X';
+      }
+    }
+  };
 
   for(let i = 1; i <=3; i++) {
     const $tr = document.createElement('tr');
     const cells = [];
     for(let j = 1; j <= 3; j++) {
       const $td = document.createElement('td');
+      $td.addEventListener('click', callback);
       cells.push($td);
       $tr.appendChild($td);
     }
     row.push(cells);
     $table.appendChild($tr);
+    $table.addEventListener('click', callback);
   }
   body.appendChild($table);
   body.appendChild($result);
